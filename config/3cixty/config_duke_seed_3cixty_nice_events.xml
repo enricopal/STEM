@@ -1,0 +1,102 @@
+<duke> 
+  <schema>
+    <threshold>0.5</threshold> 
+
+    <property type="id">
+      <name>ID</name>
+    </property>
+    
+    <property>
+      <name>LABEL</name> 
+     <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+     <low>0.04</low>
+      <high>0.80</high>
+    </property>    
+    <property>
+      <name>STARTTIME</name> 
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.04</low>
+      <high>0.80</high>
+    </property>
+    <property>
+      <name>GEO</name> 
+      <comparator>no.priv.garshol.duke.comparators.GeopositionComparator</comparator>
+      <low>0.04</low>
+      <high>0.80</high>
+    </property>
+  </schema>
+    <database class="no.priv.garshol.duke.databases.LuceneDatabase">
+    <param name="max-search-hits" value="10"/>
+    <param name="min-relevance" value="0.4"/>
+    <param name="fuzzy-search" value="true"/>
+   <!-- <param name="path" value="./Lucene_Path"/>-->
+  </database>
+
+  <group>
+    <sparql>
+        <param name="endpoint" value="http://localhost:8870/sparql"/>
+          <param name="triple-mode" value="false"/>
+          <param name="page-size" value="0"/>
+
+          <param name="query" value= "
+          select distinct(?uri) ?label ?starttime (concat (?lat, &quot;,&quot;, ?long) as ?geo)
+          where { 
+          graph ?g {
+          ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://linkedevents.org/ontology/Event&gt; .
+          ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label .
+          ?uri &lt;http://linkedevents.org/ontology/atTime&gt; ?attime .
+          ?attime &lt;http://www.w3.org/2006/time#hasBeginning&gt; ?begin .
+          ?begin &lt;http://www.w3.org/2006/time#inXSDDateTime&gt; ?starttime.
+          ?uri &lt;http://linkedevents.org/ontology/inSpace&gt; ?space .
+          ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat .
+          ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?long .
+          } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) ) 
+          } LIMIT 5000
+          "/>
+          <column name= "uri"
+            property = "ID" />
+          <column name= "label"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "LABEL"/>
+          <column name= "starttime"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "STARTTIME"/>
+          <column name="geo"
+            property = "GEO" />
+    </sparql>
+  </group>
+
+  <group>
+    <sparql>
+          <param name="endpoint" value="http://localhost:8870/sparql" />
+          <param name="triple-mode" value="false"/>
+          <param name="page-size" value="0"/>
+          <param name="query" value= "
+          select distinct(?uri) ?label ?starttime (concat (?lat, &quot;,&quot;, ?long) as ?geo)
+          where { 
+          graph ?g {
+          ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://linkedevents.org/ontology/Event&gt; .
+          ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label .
+          ?uri &lt;http://data.linkedevents.org/def/location#cell&gt; ?cell .
+          ?uri &lt;http://linkedevents.org/ontology/atTime&gt; ?attime .
+          ?attime &lt;http://www.w3.org/2006/time#hasBeginning&gt; ?begin .
+          ?begin &lt;http://www.w3.org/2006/time#inXSDDateTime&gt; ?starttime.
+          ?uri &lt;http://linkedevents.org/ontology/inSpace&gt; ?space .
+          ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat .
+          ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?long .
+          } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) ) 
+          } LIMIT 5000
+          "/>
+          <column name= "uri"
+            property = "ID" />
+          <column name= "label"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "LABEL"/>
+          <column name= "starttime"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "STARTTIME"/>
+          <column name ="geo"
+            property = "GEO" />
+    </sparql>
+  </group>
+</duke>

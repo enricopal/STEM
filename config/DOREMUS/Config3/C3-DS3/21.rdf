@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8' standalone='no'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'
+    xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+    xmlns:xsd='http://www.w3.org/2001/XMLSchema#'
+    xmlns:align='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'>
+<Alignment>
+<map>
+      <Cell>
+          <entity1 rdf:resource="http://data.doremus.org/Self_Contained_Expression/F22/754e765d-05e3-4e90-bf84-1cda25b9c661"/>
+          <entity2 rdf:resource="http://data.doremus.org/Self_Contained_Expression/F22/e48796d9-3b84-4690-a5a9-5eb46df3c14a"/>
+        <relation>=</relation>
+        <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+      </Cell>
+    </map>
+<map>
+      <Cell>
+          <entity1 rdf:resource="http://data.doremus.org/Self_Contained_Expression/F22/9dffcddc-a47a-4229-af7d-cc92548b03cb"/>
+          <entity2 rdf:resource="http://data.doremus.org/Self_Contained_Expression/F22/7cd86398-96a1-45a1-864a-4ca7d550b2ee"/>
+        <relation>=</relation>
+        <measure rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1.0</measure>
+      </Cell>
+    </map>
+</Alignment>
+</rdf:RDF>

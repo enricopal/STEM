@@ -1,0 +1,96 @@
+<Silk>
+  <Prefixes>
+    <Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix id="dbpp" namespace="http://dbpedia.org/property/"/>
+    <Prefix id="dcterm" namespace="http://purl.org/dc/terms/"/>
+    <Prefix id="dc" namespace="http://purl.org/dc/elements/1.1/"/>
+    <Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#"/>
+    <Prefix id="foaf" namespace="http://xmlns.com/foaf/0.1/"/>
+    <Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix id="dbpediaowl" namespace="http://dbpedia.org/ontology/"/>
+    <Prefix id="linkedmdb" namespace="http://data.linkedmdb.org/resource/movie/"/>
+    <Prefix id="local" namespace="http://127.0.0.1:3333/"/>
+  </Prefixes>
+  <DataSources>
+    <Dataset id="FFIEC" type="file">
+      <Param name="file" value="../../data/FEIII2016/FFIEC.ttl"/>
+      <Param name="format" value="TURTLE"/>
+    </Dataset>
+    <Dataset id="SEC" type="file">
+      <Param name="file" value="../../data/FEIII2016/SEC.ttl"/>
+      <Param name="format" value="TURTLE"/>
+    </Dataset>
+  </DataSources>
+
+
+  <Blocking blocks="10000" />
+
+  <Interlinks>
+    <Interlink id="FFIEC_SEC">
+      <SourceDataset dataSource="FFIEC" var="a">
+        <RestrictTo>
+          { ?a a foaf:Document }.
+        </RestrictTo>
+      </SourceDataset>
+      <TargetDataset dataSource="SEC" var="b">
+        <RestrictTo>
+          { ?b a foaf:Document } .
+        </RestrictTo>
+      </TargetDataset>
+      <LinkageRule linkType="owl:sameAs">
+        <Aggregate id="unnamed_1" required="false" weight="1" type="average">
+
+          <Compare id="unnamed_2" required="false" weight="1" metric="jaroWinkler" threshold="0.1"
+                   indexing="true">
+            <TransformInput id="unnamed_3" function="lowerCase">
+              <Input id="unnamed_4" path="?a/local:NAME"/>
+            </TransformInput>
+            <TransformInput id="unnamed_5" function="lowerCase">
+              <Input id="unnamed_6" path="?b/local:NAME"/>
+            </TransformInput>
+            <Param name="minChar" value="0"/>
+            <Param name="maxChar" value="z"/>
+         </Compare>
+
+         <Compare id="unnamed_7" required="false" weight="1" metric="jaroWinkler" threshold="0.1" indexing="true">
+            <TransformInput id="unnamed_8" function="lowerCase">
+            <Input id="unnamed_9" path="?a/local:ADDRESS"/>
+            </TransformInput>
+            <TransformInput id="unnamed_10" function="lowerCase">
+            <Input id="unnamed_11" path="?b/local:ADDRESS"/>
+            </TransformInput>
+          </Compare>
+
+           <Compare id="unnamed_12" required="false" weight="1" metric="jaroWinkler" threshold="0.1" indexing="true">
+            <TransformInput id="unnamed_13" function="lowerCase">
+            <Input id="unnamed_14" path="?a/local:CITY"/>
+            </TransformInput>
+            <TransformInput id="unnamed_15" function="lowerCase">
+            <Input id="unnamed_16" path="?b/local:CITY"/>
+            </TransformInput>
+          </Compare>
+
+           <Compare id="unnamed_17" required="false" weight="1" metric="equality" threshold="0.1" indexing="true">
+            <TransformInput id="unnamed_18" function="lowerCase">
+            <Input id="unnamed_19" path="?a/local:STATE"/>
+            </TransformInput>
+            <TransformInput id="unnamed_20" function="lowerCase">
+            <Input id="unnamed_21" path="?b/local:STATE"/>
+            </TransformInput>
+          </Compare>
+
+        </Aggregate>
+        <Filter/>
+      </LinkageRule>
+    </Interlink>
+  </Interlinks>
+  <Transforms>
+
+  </Transforms>
+  <Outputs>
+    <Output type = "file" minConfidence = "0.7">
+      <Param name="file" value="FFIEC_SEC_copy.nt"/>
+      <Param name="format" value="N-TRIPLE"/>
+    </Output>
+  </Outputs>
+</Silk>

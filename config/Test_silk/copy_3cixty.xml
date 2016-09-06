@@ -1,0 +1,64 @@
+<Silk>
+  <Prefixes>
+    <Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" />
+    <Prefix id="dbpp" namespace="http://dbpedia.org/property/" />
+    <Prefix id="dcterm" namespace="http://purl.org/dc/terms/" />
+    <Prefix id="dc" namespace="http://purl.org/dc/elements/1.1/" />
+    <Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#" />
+    <Prefix id="foaf" namespace="http://xmlns.com/foaf/0.1/" />
+    <Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#" />
+    <Prefix id="dbpediaowl" namespace="http://dbpedia.org/ontology/" />
+    <Prefix id="linkedmdb" namespace="http://data.linkedmdb.org/resource/movie/" />
+    <Prefix id="local" namespace="http://127.0.0.1:3333/" />
+  </Prefixes>
+  <DataSources>
+    <Dataset id="FFIEC" type="file">
+      <Param name="file" value="../../data/FEIII2016/Data and Metadata/FFIEC_2.ttl" />
+      <Param name="format" value="TURTLE" />
+    </Dataset>
+    <Dataset id="SEC" type="file">
+      <Param name="file" value="../../data/FEIII2016/Data and Metadata/FFIEC_2.ttl" />
+      <Param name="format" value="TURTLE" />
+    </Dataset>
+  </DataSources>
+  <Interlinks>
+    <Interlink id="FFIEC_SEC">
+      <SourceDataset dataSource="FFIEC" var="a">
+        <RestrictTo>
+          { ?a a foaf:Document }.
+        </RestrictTo>
+      </SourceDataset>
+      <TargetDataset dataSource="SEC" var="b">
+        <RestrictTo>
+          { ?b a foaf:Document } .
+        </RestrictTo>
+      </TargetDataset>
+      <LinkageRule linkType="owl:sameAs">
+        <Aggregate id="unnamed_7" required="false" type="average" weight="1">
+          <Compare id="unnamed_6" indexing="true" metric="levenshteinDistance" required="false" threshold="0.5" weight="1">
+            <TransformInput function="lowerCase" id="unnamed_8">
+              <Input id="unnamed_1" path="?a/local:NAME" />
+
+            </TransformInput>
+            <TransformInput function="lowerCase" id="unnamed_9">
+              <Input id="unnamed_2" path="?b/local:NAME" />
+
+            </TransformInput>
+            
+         </Compare>
+         
+        </Aggregate>
+        <Filter />
+      </LinkageRule>
+    </Interlink>
+  </Interlinks>
+  <Transforms>
+
+  </Transforms>
+  <Outputs>
+    <Output minConfidence="0.9" type="file">
+      <Param name="file" value="FFIEC_SEC.nt" />
+      <Param name="format" value="N-TRIPLE" />
+    </Output>
+  </Outputs>
+</Silk>

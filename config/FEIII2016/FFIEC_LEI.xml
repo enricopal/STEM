@@ -1,0 +1,102 @@
+<!--
+  For more information, see
+    https://github.com/larsga/Duke/wiki/
+
+  Improvements needed:
+   - some area numbers have spaces in them
+   - not stripping accents from names
+-->
+<duke> 
+  <object class="no.priv.garshol.duke.comparators.NumericComparator"
+          name="AreaComparator">
+    <param name="min-ratio" value="0.7"/>
+  </object>
+
+  <schema>
+    <threshold>0.75</threshold> 
+
+    <property type="id">
+      <name>ID</name>
+    </property>
+    
+    <property>
+      <name>NAME</name> 
+      <comparator>no.priv.garshol.duke.comparators.SemanticFinancialInstitutionComparator</comparator>
+      <low>0.04</low>
+      <high>0.80</high>	
+    </property>    
+    <property>
+      <name>ADDRESS</name> 
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.1</low>
+      <high>0.75</high>
+    </property>
+    <property>
+      <name>CITY</name> 
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.04</low>
+      <high>0.53</high>
+    </property>
+    <property>
+      <name>STATE</name> 
+      <comparator>no.priv.garshol.duke.comparators.ExactComparator</comparator>
+      <low>0.01</low>
+      <high>0.53</high>
+    </property>
+  </schema>
+
+
+  <database class="no.priv.garshol.duke.databases.LuceneDatabase">
+    <param name="max-search-hits" value="10"/>
+    <param name="min-relevance" value="0.7"/>
+    <param name="fuzzy-search" value="true"/>
+  </database>
+
+  <group>
+    <csv>
+      <param name="input-file" value="LEI.csv"/>
+      
+      <column name="LEI" property="ID"/>
+      <column name="LegalNameCleaned"
+              property="NAME"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner no.priv.garshol.duke.cleaners.FinancialInstitutionNameCleaner"/>
+      <column name="LegalAddress_Line_Cleaned"
+              property="ADDRESS"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"/>
+      <column name="LegalAddress_City"
+              property="CITY"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"/>
+      <!--<column name="LegalAddress_PostalCode"
+              property="ZIPCODE"
+              cleaner="no.priv.garshol.duke.cleaners.DigitsOnlyCleaner"/>-->
+      <column name="LegalAddress_Region_2"
+              property="STATE"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"/>
+    </csv>
+  </group>
+
+  <group>
+    <csv>
+      <param name="input-file" value="FFIEC.csv"/>
+      
+      <column name="IDRSSD" property="ID"/>
+      <column name="Financial Institution Name Cleaned"
+              property="NAME"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner no.priv.garshol.duke.cleaners.FinancialInstitutionNameCleaner"/>
+      <column name="Financial Institution Address"
+              property="ADDRESS"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"/>
+      <column name="Financial Institution City"
+              property="CITY"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"/>
+      <!--<column name="Financial Institution Zip Code"
+              property="ZIPCODE"
+              cleaner="no.priv.garshol.duke.cleaners.DigitsOnlyCleaner"/>-->
+      <column name="Financial Institution State"
+              property="STATE"
+              cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"/>
+    </csv>
+  </group>
+
+  
+</duke>

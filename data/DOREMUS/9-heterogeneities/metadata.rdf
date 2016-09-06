@@ -1,0 +1,56 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:seals="http://www.seals-project.eu/ontologies/SEALSMetadata.owl#"
+    xmlns:dc="http://purl.org/dc/terms/" > 
+    
+
+	<!-- MATCHING PROBLEMS -->
+	
+
+	<rdf:Description rdf:about="http://www.seals-project.eu/alignment/DOREMUS">
+		<rdf:type rdf:resource="http://www.seals-project.eu/ontologies/SEALSMetadata.owl#Suite"/>
+		<seals:hasSuiteItem rdf:resource="http://www.seals-project.eu/alignment/DOREMUS#9-heter"/>		
+	</rdf:Description>
+
+	
+
+	<rdf:Description rdf:about="http://www.seals-project.eu/alignment/DOREMUS#9-heter">
+		<rdf:type rdf:resource="http://www.seals-project.eu/ontologies/SEALSMetadata.owl#SuiteItem"/>
+		<seals:hasDataItem rdf:resource="http://www.seals-project.eu/alignment/DOREMUS#PP-1"/>
+		<seals:hasDataItem rdf:resource="http://www.seals-project.eu/alignment/DOREMUS#BnF-1"/>
+		<seals:hasDataItem rdf:resource="http://www.seals-project.eu/alignment/DOREMUS#ref"/>
+		<dc:identifier>doremus</dc:identifier>
+	</rdf:Description>
+
+
+
+	<!-- ONTOLOGIES -->
+
+	<rdf:Description rdf:about="http://www.seals-project.eu/alignment/DOREMUS#PP-1">
+		<rdf:type rdf:resource="http://www.seals-project.eu/ontologies/SEALSMetadata.owl#DataItem"/>
+		<seals:hasComponentType>source</seals:hasComponentType>
+		<seals:isLocatedAt>PP-1.owl</seals:isLocatedAt>
+		<dc:identifier>PP-1</dc:identifier>
+	</rdf:Description>
+
+	
+
+	<rdf:Description rdf:about="http://www.seals-project.eu/alignment/DOREMUS#BnF-1">
+		<rdf:type rdf:resource="http://www.seals-project.eu/ontologies/SEALSMetadata.owl#DataItem"/>
+		<seals:hasComponentType>target</seals:hasComponentType>
+		<seals:isLocatedAt>BnF-1.owl</seals:isLocatedAt>
+		<dc:identifier>BnF-1</dc:identifier>
+	</rdf:Description>
+	
+	
+	
+
+	<rdf:Description rdf:about="http://www.seals-project.eu/alignment/DOREMUS#ref">
+		<rdf:type rdf:resource="http://www.seals-project.eu/ontologies/SEALSMetadata.owl#DataItem"/>
+		<seals:hasComponentType>reference</seals:hasComponentType>
+		<seals:isLocatedAt>refalign.rdf</seals:isLocatedAt>
+		<dc:identifier>ref</dc:identifier>
+	</rdf:Description>
+
+
+</rdf:RDF>

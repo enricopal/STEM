@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Silk>
+    <Prefixes>
+		<Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+		<Prefix id="geo" namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"/>
+		<Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#"/>
+		<Prefix id="schema" namespace="http://schema.org/"/>
+		<Prefix id="dul" namespace="http://ontologydesignpatterns.org/ont/dul/DUL.owl#"/>
+		<Prefix id="dc" namespace="http://purl.org/dc/elements/1.1/"/>
+		<Prefix id="vcard" namespace="http://www.w3.org/2006/vcard/ns#"/>
+		<Prefix id="lode" namespace="http://linkedevents.org/ontology/"/>
+		<Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#"/>
+		<Prefix id="dcterms" namespace="http://purl.org/dc/terms/"/>
+		<Prefix id="locationOnt" namespace="http://data.linkedevents.org/def/location#" />	
+    </Prefixes>
+    <DataSources>
+        <DataSource id="placesA" type="sparqlEndpoint">
+		    <Param name="pageSize" value="1000"/>
+		    <Param name="pauseTime" value="0"/>
+		    <Param name="retryCount" value="3"/>
+		    <Param name="endpointURI" value="http://localhost:8870/sparql"/>
+		    <Param name="retryPause" value="1000"/>
+	    	<!-- <Param name="graph" value="http://3cixty.com/nice/places"/> -->
+		</DataSource>
+		<DataSource id="placesB" type="sparqlEndpoint">
+		    <Param name="pageSize" value="1000"/>
+		    <Param name="pauseTime" value="0"/>
+		    <Param name="retryCount" value="3"/>
+		    <Param name="endpointURI" value="http://localhost:8870/sparql"/>
+		    <Param name="retryPause" value="1000"/>
+	    <!-- <Param name="graph" value="http://3cixty.com/nice/places"/> -->
+		</DataSource>
+    </DataSources>
+    <Blocking blocks="100" />
+    <Interlinks>
+        <Interlink id="linking">
+			<LinkType>owl:sameAs</LinkType>
+			<SourceDataset dataSource="placesA" var="a">
+				<RestrictTo> { ?a a dul:Place } . </RestrictTo>
+			</SourceDataset>
+			<TargetDataset dataSource="placesB" var="b">
+				<RestrictTo> { ?b a dul:Place } . </RestrictTo>
+			</TargetDataset>
+			<LinkageRule>
+				<Aggregate id="unnamed_20" required="false" weight="1" type="average">
+					<Compare id="unnamed_5" required="true" weight="3" metric="jaroWinkler" threshold="0.2" indexing="true">
+					<!--<Compare id="unnamed_5" required="false" weight="5" metric="qGram" threshold="0.8" indexing="true">-->
+						<TransformInput id="unnamed_15" function="lowerCase">
+							<TransformInput function="removeValues">
+								<TransformInput function="removeParentheses">
+									<TransformInput id="unnamed_1" function="removeSpecialChars">
+										<Input id="unnamed_2" path="?a/rdfs:label"/>
+									</TransformInput>
+								</TransformInput>
+   							<Param name="blacklist" value="Nice,nice,France,@fr,@en" />
+							</TransformInput>
+						</TransformInput>
+						<TransformInput id="unnamed_21" function="lowerCase">
+							<TransformInput function="removeValues">
+								<TransformInput function="removeParentheses">							
+									<TransformInput id="unnamed_4" function="removeSpecialChars">
+										<Input id="unnamed_3" path="?b/rdfs:label"/>
+									</TransformInput>
+								</TransformInput>
+							<Param name="blacklist" value="Nice,nice,France,@fr,@en" />
+							</TransformInput>
+						</TransformInput>
+						<!--<Param name="minChar" value="0"/>
+						<Param name="maxChar" value="z"/>
+						<Param name="q" value="2"/>-->
+					</Compare>
+					<Compare id="unnamed_100" required="false" weight="2" metric="equality" threshold="0" indexing="true">
+						<Input id="unnamed_102" path="?a/locationOnt:cell"/>
+						<Input id="unnamed_103" path="?b/locationOnt:cell"/>
+					</Compare>
+					<!-- <Compare id="unnamed_1000" required="false" weight="1" metric="equality" threshold="0" indexing="true">
+						<Input id="unnamed_1002" path="?a/locationOnt:businessTypeTop"/>
+						<Input id="unnamed_1003" path="?b/locationOnt:businessTypeTop"/>
+					</Compare>-->				
+					<Compare id="unnamed_17" required="false" weight="1" metric="tokenwiseDistance" threshold="0.2" indexing="true">
+						<TransformInput id="unnamed_12" function="lowerCase">
+							<TransformInput function="removeValues">
+    							<TransformInput function="removeParentheses">
+    								<TransformInput function="removeBlanks">
+										<TransformInput function="removeSpecialChars"> 	 									
+    										<Input id="unnamed_10" path="?a/schema:location/schema:streetAddress"/>
+    									</TransformInput>
+    								</TransformInput>
+    							</TransformInput>
+    							<Param name="blacklist" value="Nice,nice,France,@fr,@en" />
+ 							</TransformInput>
+						</TransformInput>
+						<TransformInput id="unnamed_13" function="lowerCase">
+							<TransformInput function="removeValues">
+								<TransformInput function="removeParentheses">
+									<TransformInput function="removeBlanks">
+										<TransformInput function="removeSpecialChars">
+											<Input id="unnamed_11" path="?b/schema:location/schema:streetAddress"/>
+										</TransformInput>
+									</TransformInput>
+								</TransformInput>
+								<Param name="blacklist" value="Nice,nice,France,@fr,@en" />
+							</TransformInput>	
+						</TransformInput>
+
+						<Param name="splitRegex" value="[\s\d\p{Punct}]+"/>
+						<Param name="metricName" value="jaroWinkler"/>
+						<!--<Param name="metricName" value="jaro"/>-->
+						<Param name="orderingImpact" value="0.0"/>
+						<Param name="useIncrementalIdfWeights" value="false"/>
+						<Param name="adjustByTokenLength" value="false"/>
+						<Param name="stopwordWeight" value="0.01"/>
+						<Param name="nonStopwordWeight" value="0.1"/>
+						<Param name="ignoreCase" value="true"/>
+						<Param name="matchThreshold" value="0.3"/>
+					</Compare>
+				</Aggregate>
+			</LinkageRule>
+			<!--<Filter limit="1" />-->
+			<Filter />
+		</Interlink>
+    </Interlinks>
+	<Outputs>
+		<Output type="file" minConfidence="0.5">
+			<Param name="file" value="places_accepted_links.nt" />
+			<Param name="format" value="ntriples" />
+		</Output>
+		<!-- <Output type="file" maxConfidence="0.49" minConfidence="0">
+			<Param name="file" value="/tmp/googleplaces_foursquare.xml" />
+			<Param name="format" value="alignment" />
+		</Output>
+		<Output type="file" maxConfidence="0.49" minConfidence="0">
+			<Param name="file" value="/home/cixty/knowledgebase/data/reconciliation/nice/places/verify/googleplaces_foursquare.nt" />
+			<Param name="format" value="ntriples" />
+		</Output> -->
+	</Outputs>
+</Silk>

@@ -1,0 +1,21 @@
+java -cp ../lib/Duke/duke-core/target/*:../lib/Duke/duke-dist/target/*:../lib/Duke/duke-es/target/*:../lib/Duke/duke-json/target/*:../lib/Duke/duke-lucene/target/*:../lib/Duke/duke-mapdb/target/*:../lib/Duke/duke-mongodb/target/*:../lib/Duke/duke-server/target/*:../lib/Duke/lucene_jar/* no.priv.garshol.duke.DebugCompare --reindex ../config/FEIII2016/FFIEC_SEC.xml 2040 2491
+
+
+Reindexing all records...
+---NAME
+'farmers and merchants bank' ~ 'bally technologies, incorporated': 0.0 (prob 0.04)
+Result: 0.5 -> 0.04
+
+---ADDRESS
+'1001 superior avenue' ~ '6601 s. bermuda rd.': 0.558133971291866 (prob 0.5467270294865044)
+Result: 0.04 -> 0.047852403599028696
+
+---CITY
+'tomah' ~ 'las vegas': 0.43703703703703706 (prob 0.04)
+Result: 0.047852403599028696 -> 0.0020896798448143926
+
+---STATE
+'wi' ~ 'nv': 0.0 (prob 0.01)
+Result: 0.0020896798448143926 -> 2.1151630891077578E-5
+
+Overall: 2.1151630891077578E-5

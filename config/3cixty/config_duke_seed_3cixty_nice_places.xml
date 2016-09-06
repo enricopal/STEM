@@ -1,0 +1,101 @@
+<duke> 
+  <schema>
+    <threshold>0.5</threshold> 
+
+    <property type="id">
+      <name>ID</name>
+    </property>
+    
+    <property>
+      <name>LABEL</name> 
+     <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+     <low>0.04</low>
+      <high>0.80</high>
+    </property>    
+    <property>
+      <name>ADDRESS</name> 
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.04</low>
+      <high>0.65</high>
+    </property>
+    <property>
+      <name>CELL</name> 
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.04</low>
+      <high>0.53</high>
+    </property>
+  </schema>
+
+    <database class="no.priv.garshol.duke.databases.LuceneDatabase">
+    <param name="max-search-hits" value="10"/>
+    <param name="min-relevance" value="0.4"/>
+    <param name="fuzzy-search" value="true"/>
+   <!-- <param name="path" value="./Lucene_Path"/>-->
+  </database>
+
+  <group>
+    <sparql>
+        <param name="endpoint" value="http://3cixty-alpha.eurecom.fr/sparql"/>
+          <param name="triple-mode" value="false"/>
+          <param name="page-size" value="0"/>
+
+          <param name="query" value= "
+           select distinct(?uri) ?label ?cell ?address 
+           where { 
+           graph ?g {
+           ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place&gt; .
+           ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label .
+           ?uri &lt;http://data.linkedevents.org/def/location#cell&gt; ?cell .
+           ?uri &lt;http://schema.org/location&gt; ?loc .
+           ?loc &lt;http://schema.org/streetAddress&gt; ?address .
+           } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) ) 
+           } limit 5000
+            "/>
+           <column name= "uri"
+            property = "ID" />
+           <column name= "label"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "LABEL"/>
+           <column name= "address"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "ADDRESS"/>
+          <column name= "cell"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "CELL"/>
+
+    </sparql>
+  </group>
+
+  <group>
+    <sparql>
+           <param name="endpoint" value="http://3cixty-alpha.eurecom.fr/sparql" />
+           <param name="triple-mode" value="false"/>
+           <param name="page-size" value="0"/>
+           <param name="query" value= "
+           select distinct(?uri) ?label ?cell ?address 
+           where { 
+           graph ?g {
+           ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place&gt; .
+           ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label .
+           ?uri &lt;http://data.linkedevents.org/def/location#cell&gt; ?cell .
+           ?uri &lt;http://schema.org/location&gt; ?loc .
+           ?loc &lt;http://schema.org/streetAddress&gt; ?address .
+           } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) ) 
+           } limit 5000
+            "/>
+           <column name= "uri"
+            property = "ID" />
+           <column name= "label"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "LABEL"/>
+           <column name= "address"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "ADDRESS"/>
+          <column name= "cell"
+            cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
+            property = "CELL"/>
+    </sparql>
+  </group>
+
+  
+</duke>

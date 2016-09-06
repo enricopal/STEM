@@ -1,0 +1,8 @@
+ensemble_duke_output*
+ensemble_silk_output*
+*.nt
+results_*
+training_*
+results/
+*.pyc
+utils/

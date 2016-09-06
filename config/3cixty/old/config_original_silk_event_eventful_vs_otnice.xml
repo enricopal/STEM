@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Silk>
+    <Prefixes>
+		<Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+		<Prefix id="geo" namespace="http://www.w3.org/2003/01/geo/wgs84_pos#"/>
+		<Prefix id="owl" namespace="http://www.w3.org/2002/07/owl#"/>
+		<Prefix id="schema" namespace="http://schema.org/"/>
+		<Prefix id="dul" namespace="http://ontologydesignpatterns.org/ont/dul/DUL.owl#"/>
+		<Prefix id="dc" namespace="http://purl.org/dc/elements/1.1/"/>
+		<Prefix id="vcard" namespace="http://www.w3.org/2006/vcard/ns#"/>
+		<Prefix id="lode" namespace="http://linkedevents.org/ontology/"/>
+		<Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#"/>
+		<Prefix id="dcterms" namespace="http://purl.org/dc/terms/"/>
+		<Prefix id="time" namespace="http://www.w3.org/2006/time#"/>
+		<Prefix id="locn" namespace="http://www.openlinksw.com/schemas/virtrdf#"/>
+		<Prefix id="locationOnt" namespace="http://data.linkedevents.org/def/location#" />
+    </Prefixes>
+    <DataSources>
+    	<DataSource id="eventful" type="sparqlEndpoint">
+	    <Param name="pageSize" value="1000"/>
+	    <Param name="pauseTime" value="0"/>
+	    <Param name="retryCount" value="3"/>
+	    <Param name="endpointURI" value="http://localhost:8870/sparql"/>
+	    <Param name="retryPause" value="1000"/>
+	    <Param name="graph" value="http://3cixty.com/nice/eventful"/>
+		</DataSource>
+        <DataSource id="ot_events" type="sparqlEndpoint">
+	    <Param name="pageSize" value="1000"/>
+	    <Param name="pauseTime" value="0"/>
+	    <Param name="retryCount" value="3"/>
+	    <Param name="endpointURI" value="http://localhost:8870/sparql"/>
+	    <Param name="retryPause" value="1000"/>
+	    <Param name="graph" value="http://3cixty.com/nice/ot_events"/>
+	</DataSource>
+    </DataSources>
+    <Interlinks>
+        <Interlink id="linking">
+			<LinkType>owl:sameAs</LinkType>
+			<SourceDataset dataSource="eventful" var="a">
+				<RestrictTo> { ?a a lode:Event .} . </RestrictTo>
+			</SourceDataset>
+			<TargetDataset dataSource="ot_events" var="b">
+				<RestrictTo> { ?b a lode:Event .} . </RestrictTo>
+			</TargetDataset>
+			<LinkageRule>
+				<Aggregate id="unnamed_12" required="false" weight="1" type="average">
+					<Compare id="unnamed_8" required="true" weight="1" metric="levenshtein" threshold="0.2" indexing="true">
+						<TransformInput id="unnamed_5" function="removeSpecialChars">
+							<TransformInput id="unnamed_3" function="lowerCase">
+								<Input id="unnamed_1" path="?a/rdfs:label"/>
+							</TransformInput>
+						</TransformInput>
+						<TransformInput id="unnamed_6" function="removeSpecialChars">
+							<TransformInput id="unnamed_4" function="lowerCase">
+								<Input id="unnamed_2" path="?b/rdfs:label"/>
+							</TransformInput>
+						</TransformInput>
+						<Param name="minChar" value="0"/>
+						<Param name="maxChar" value="z"/>
+					</Compare>
+					<!-- 6 h offset -->
+					<Compare id="unnamed_10" required="true" weight="1" metric="dateTime" threshold="21600.0" indexing="true">
+						<Input id="unnamed_7" path="?a/lode:atTime/time:hasBeginning/time:inXSDDateTime"/>
+						<Input id="unnamed_9" path="?b/lode:atTime/time:hasBeginning/time:inXSDDateTime"/>
+					</Compare>
+					<!--
+					<Compare id="unnamed_15" required="true" weight="1" metric="wgs84" threshold="10050" indexing="true">
+						<Input id="unnamed_11" path="?a/lode:inSpace/locn:geometry"/>
+						<Input id="unnamed_13" path="?b/lode:inSpace/locn:geometry"/>
+						<Param name="unit" value="km"/>
+					</Compare> -->
+					<Compare id="unnamed_16" required="true" weight="1" metric="equality" threshold="1" indexing="true">
+						<Input id="unnamed_17" path="?a/locationOnt:cell"/>
+						<Input id="unnamed_18" path="?b/locationOnt:cell"/>
+					</Compare>
+				</Aggregate>
+			</LinkageRule>
+			<Filter />
+			<Outputs>
+				<Output type="file" minConfidence="0.24">
+					<Param name="file" value="/home/cixty/knowledgebase/data/reconciliation/nice/events/accepted/accepted_links_eventful_otnice.nt" />
+					<Param name="format" value="ntriples" />
+				</Output>
+				<Output type="file" maxConfidence="0.23" minConfidence="0.1">
+					<Param name="file" value="/tmp/verify_links_alignment_eventful_ot_events.nt" />
+					<Param name="format" value="alignment" />
+				</Output>
+				<Output type="file" maxConfidence="0.23" minConfidence="0.1">
+					<Param name="file" value="/home/cixty/knowledgebase/data/reconciliation/nice/events/verify/verify_links_eventful_otnice.nt" />
+					<Param name="format" value="ntriples" />
+				</Output>
+			</Outputs>
+		</Interlink>
+    </Interlinks>
+</Silk>

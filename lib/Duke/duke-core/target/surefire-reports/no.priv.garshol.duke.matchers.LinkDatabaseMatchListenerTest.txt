@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: no.priv.garshol.duke.matchers.LinkDatabaseMatchListenerTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.147 sec
