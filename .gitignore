@@ -6,3 +6,4 @@ training_*
 results/
 *.pyc
 utils/
+.dropbox
