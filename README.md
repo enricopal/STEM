@@ -23,7 +23,7 @@ STEM requires a configuration file of the base classifier and a gold standard. Y
     cd src
     python STEM.py -i ../config/FEIII2016/FFIEC_SEC.xml -g ../data/FEIII2016/gs/FFIEC-SEC-GroundTruth.csv -s duke -N 5 -a 0.2
 
-When starting your own experiment, you need to choose whether you want to use Duke or Silk as a base classifier. Then, you need to produce a valid Duke or Silk configuration file. You also need to create a gold standard, namely a set of annotated matches that STEM will use to learn. 
+When starting your own experiment, you need to choose whether you want to use Duke or Silk as a base classifier. Then, you need to produce a valid Duke or Silk configuration file. You also need to create a gold standard, namely a set of annotated matches that STEM will use to learn. This can be done manually or through the active learning module of Duke.
 The Gold Standard needs to have this format:
 
     +,id1,id2,1.0
