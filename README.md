@@ -2,9 +2,9 @@
 ### STEM: Stacked Threshold-based Entity Matching ###
 #####################################################
 
-STEM performs stacking on top of a number N of instances of classifiers.
+STEM is a software for entity matching (deduplication, record linkage, link discovery...). It runs several instances of threshold-based classifiers with different threshold values and use their predictions as a feature vector for an SVM classifier.
 
-Two popular entity matching systems are supported:
+Two popular threshold-based entity matching systems are supported:
 
 - Duke: https://github.com/larsga/Duke
 
