@@ -1,7 +1,6 @@
 
 # STEM: Stacked Threshold-based Entity Matching 
 
-
 STEM is a software for entity matching (also known as deduplication, record linkage, link discovery...). It runs several instances of threshold-based entity matchers with different threshold values and use their predictions as a feature vector for an SVM classifier. In this way, STEM is able to achieve high recall and precision at the same time.
 
 Two popular threshold-based entity matching systems are supported as base classifiers:
@@ -34,8 +33,8 @@ where id1 comes from the first set of data and id1 from the second set of data t
 
 You should organize the files in the following way:
 
--configuration_file: config/my_experiment/config.xml
--gold_standard: data/my_experiment/gs/gs.csv
+- configuration_file: config/my_experiment/config.xml
+- gold_standard: data/my_experiment/gs/gs.csv
 
 Then using Duke:
 
