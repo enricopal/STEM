@@ -1,13 +1,14 @@
 
 # STEM: Stacked Threshold-based Entity Matching 
 
-STEM is a software for entity matching (also known as deduplication, record linkage, link discovery...). It runs several instances of threshold-based entity matchers with different threshold values and use their predictions as a feature vector for an SVM classifier. In this way, STEM is able to achieve high recall and precision at the same time.
-
-Two popular threshold-based entity matching systems are supported as base classifiers:
+STEM is a software for entity matching (also known as deduplication, record linkage, link discovery...). STEM can be used to find duplicate records in your database, or to link a database to another by finding identical records. STEM does not implement entity matching from scratch, but it is based on already existing open source entity matching software.
+Two alternative threshold-based entity matching systems are supported:
 
 - [Duke] (https://github.com/larsga/Duke)
 
 - [Silk] (https://github.com/silk-framework/silk)
+
+STEM runs several instances of the base entity matcher with different threshold values and use their predictions as a feature vector for an SVM classifier. In this way, STEM is able to achieve high recall and precision at the same time.
 
 ##Dependencies
 
