@@ -62,7 +62,6 @@
           <column name= "cell"
             cleaner = "no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"
             property = "CELL"/>
-
     </sparql>
   </group>
 

@@ -15,12 +15,13 @@ import time
 
 class STEM:
 
-    def __init__(self, file_name, N, a,rdf):
+    def __init__(self, file_name, N, a,rdf, output_name):
 
         self.file_name = file_name
         self.N = N
         self.a = a
         self.rdf = rdf
+        self.output_name = output_name
 
 
     def stem_duke(self, gold_standard): #train the model on goldstandard
@@ -131,9 +132,11 @@ class STEM:
         id1 = list(data)[0]
         id2 = list(data)[1]
 
+        output_name = self.output_name
+
         if rdf == True:
 
-            f = open(path_to_file+'results_stacking_n%d.nt' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -143,12 +146,12 @@ class STEM:
                     f.write(' <http://www.w3.org/2002/07/owl#sameAs> ')
                     f.write('<')
                     f.write(str(i[1]))
-                    f.write('>')
+                    f.write('> .')
                     f.write('\n')
 
         else:    
 
-            f = open(path_to_file+'results_stacking_n%d.csv' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             f.write('%s,%s\n' %(id1,id2))
 
@@ -295,13 +298,15 @@ class STEM:
         #save the output
         output = np.reshape(clf.predict(X),(len(data),1))
 
+        output_name = self.output_name
+
         #dump it to file
 
         id1_id2_output = np.concatenate((data.values[:,0:2],output), axis = 1)
 
         if rdf == True:
 
-            f = open(path_to_file+'results_stacking_silk_n%d.nt' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -311,12 +316,12 @@ class STEM:
                     f.write(' <http://www.w3.org/2002/07/owl#sameAs> ')
                     f.write('<')
                     f.write(str(i[1]))
-                    f.write('>')
+                    f.write('> .')
                     f.write('\n')
 
         else:    
 
-            f = open(path_to_file+'results_stacking_silk_n%d.csv' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -426,6 +431,7 @@ class STEM:
         clf = joblib.load(model)
  
         output = np.reshape(clf.predict(X),(len(data),1))
+        output_name = self.output_name
 
         #dump it to file
 
@@ -433,7 +439,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+'results_stacking_n%d.nt' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -443,12 +449,12 @@ class STEM:
                     f.write(' <http://www.w3.org/2002/07/owl#sameAs> ')
                     f.write('<')
                     f.write(str(i[1]))
-                    f.write('>')
+                    f.write('> .')
                     f.write('\n')
 
         else:    
 
-            f = open(path_to_file+'results_stacking_n%d.csv' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -551,13 +557,15 @@ class STEM:
  
         output = np.reshape(clf.predict(X),(len(data),1))
 
+        output_name = self.output_name
+
         #dump it to file
 
         id1_id2_output = np.concatenate((data.values[:,0:2],output), axis = 1)
 
         if rdf == True:
 
-            f = open(path_to_file+'results_stacking_n%d.nt' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -567,12 +575,12 @@ class STEM:
                     f.write(' <http://www.w3.org/2002/07/owl#sameAs> ')
                     f.write('<')
                     f.write(str(i[1]))
-                    f.write('>')
+                    f.write('> .')
                     f.write('\n')
 
         else:    
 
-            f = open(path_to_file+'results_stacking_n%d.csv' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -698,7 +706,7 @@ class STEM:
         #save the output
         output = np.reshape(clf.predict(X),(len(data),1))
 
-
+        output_name = self.output_name
 
         #dump it to file
 
@@ -707,7 +715,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+'results_stacking_n%d.nt' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -717,12 +725,12 @@ class STEM:
                     f.write(' <http://www.w3.org/2002/07/owl#sameAs> ')
                     f.write('<')
                     f.write(str(i[1]))
-                    f.write('>')
+                    f.write('> .')
                     f.write('\n')
 
         else:    
 
-            f = open(path_to_file+'results_stacking_n%d.csv' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -840,6 +848,7 @@ class STEM:
         #save the output
         output = np.reshape(clf.predict(X),(len(data),1))
 
+        output_name = self.output_name
         #dump it to file
 
         id1_id2_output = np.concatenate((data.values[:,0:2],output), axis = 1)
@@ -847,7 +856,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+'results_stacking_n%d.nt' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -857,12 +866,12 @@ class STEM:
                     f.write(' <http://www.w3.org/2002/07/owl#sameAs> ')
                     f.write('<')
                     f.write(str(i[1]))
-                    f.write('>')
+                    f.write('> .')
                     f.write('\n')
 
         else:    
 
-            f = open(path_to_file+'results_stacking_n%d.csv' %N, 'w')
+            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -905,7 +914,8 @@ if __name__ == '__main__':
     parser.add_option('-g','--gold', dest = 'gold_standard_name', help = 'gold_standard_name')
     parser.add_option('-s', '--software', dest = 'software_name', help = 'software name')
     parser.add_option('-m', '--model', dest = 'model', help = 'use a pretrained classifier')
-    parser.add_option('-t','--rdf', action="store_true", dest="rdf")
+    parser.add_option('-t','--rdf', action="store_true", dest="rdf", help = 'ntriples format output')
+    parser.add_option('-o','--output', dest = 'output_name', help = 'name of the output file of')
 
     (options, args) = parser.parse_args()
 
@@ -921,6 +931,9 @@ if __name__ == '__main__':
     if options.software_name is None:
         options.software_name = raw_input('Enter software name, silk or duke:')
 
+    if options.output_name is None:
+        options.output_name = raw_input('Enter output file name')
+
 
     file_name = options.file_name #define the variables
     N = int(options.N)
@@ -928,9 +941,10 @@ if __name__ == '__main__':
     gold_standard_name = options.gold_standard_name
     software_name = options.software_name
     model = options.model
+    output_name = options.output_name
     rdf = options.rdf
 
-    stem = STEM(file_name,N,a,rdf)
+    stem = STEM(file_name,N,a,rdf, output_name)
 
     if software_name == 'silk':
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<duke>
+  <schema>
+    <threshold>0.88</threshold>
+    <property type="id">
+      <name>ID</name>
+    </property>
+    <property>
+      <name>LABEL</name>
+      <comparator>no.priv.garshol.duke.comparators.JaroWinklerTokenized</comparator>
+      <low>0.061612694709970384</low>
+      <high>0.5434577926724293</high>
+    </property>
+    <property>
+      <name>STARTTIME</name>
+      <comparator>no.priv.garshol.duke.comparators.QGramComparator</comparator>
+      <low>0.30883296791442844</low>
+      <high>0.9752108166333728</high>
+    </property>
+    <property>
+      <name>GEO</name>
+      <comparator>no.priv.garshol.duke.comparators.DifferentComparator</comparator>
+      <low>0.4401961098393515</low>
+      <high>0.672341100780717</high>
+    </property>
+  </schema>
+  <database class="no.priv.garshol.duke.databases.LuceneDatabase"></database>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://localhost:8870/sparql"></param>
+      <param name="query" value="           select distinct(?uri) ?label ?starttime (concat (?lat, &quot;,&quot;, ?long) as ?geo)           where {            graph ?g {           ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://linkedevents.org/ontology/Event&gt; .           ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label .           ?uri &lt;http://linkedevents.org/ontology/atTime&gt; ?attime .           ?attime &lt;http://www.w3.org/2006/time#hasBeginning&gt; ?begin .           ?begin &lt;http://www.w3.org/2006/time#inXSDDateTime&gt; ?starttime.           ?uri &lt;http://linkedevents.org/ontology/inSpace&gt; ?space .           ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat .           ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?long .           } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) )            } LIMIT 5000           "></param>
+      <param name="page-size" value="0"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="geo" property="GEO"></column>
+      <column name="label" property="LABEL" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="starttime" property="STARTTIME" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="uri" property="ID"></column>
+    </sparql>
+  </group>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://localhost:8870/sparql"></param>
+      <param name="query" value="           select distinct(?uri) ?label ?starttime (concat (?lat, &quot;,&quot;, ?long) as ?geo)           where {            graph ?g {           ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://linkedevents.org/ontology/Event&gt; .           ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label&gt; ?label .           ?uri &lt;http://data.linkedevents.org/def/location#cell&gt; ?cell .           ?uri &lt;http://linkedevents.org/ontology/atTime&gt; ?attime .           ?attime &lt;http://www.w3.org/2006/time#hasBeginning&gt; ?begin .           ?begin &lt;http://www.w3.org/2006/time#inXSDDateTime&gt; ?starttime.           ?uri &lt;http://linkedevents.org/ontology/inSpace&gt; ?space .           ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#lat&gt; ?lat .           ?space &lt;http://www.w3.org/2003/01/geo/wgs84_pos#long&gt; ?long .           } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) )            } LIMIT 5000           "></param>
+      <param name="page-size" value="0"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="geo" property="GEO"></column>
+      <column name="label" property="LABEL" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="starttime" property="STARTTIME" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="uri" property="ID"></column>
+    </sparql>
+  </group>
+</duke>
