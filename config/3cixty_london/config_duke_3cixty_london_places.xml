@@ -32,8 +32,22 @@
   <group>
     <sparql>
       <param name="endpoint" value="http://3cixty.casa.ucl.ac.uk:8890/sparql"></param>
-      <param name="query" value="            select distinct(?uri) ?label ?cell ?address             where {             graph ?g {            ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type> &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place> .            ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label> ?label .            ?uri &lt;http://data.linkedevents.org/def/location#cell> ?cell .            ?uri &lt;http://schema.org/location> ?loc .            ?loc &lt;http://schema.org/streetAddress> ?address .            } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) )             } limit 5000             "></param>
-      <param name="page-size" value="0"></param>
+      <param name="query" value="            
+        select distinct(?uri) ?label ?cell ?address             
+        where {             
+        graph ?g {            
+        ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type> &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place> .            
+        ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label> ?label .            
+        ?uri &lt;http://data.linkedevents.org/def/location#cell> ?cell .            
+        ?uri &lt;http://schema.org/location> ?loc .            
+        ?loc &lt;http://schema.org/streetAddress> ?address .            
+        }        
+        filter( !contains(str(?g), &quot;http://3cixty.com/london/places&quot;) ) 
+        filter( !contains(str(?g), &quot;http://3cixty.com/london/events&quot;) )         
+        filter( contains(str(?g), &quot;http://3cixty.com/london/&quot;) )             
+        }              
+        "></param>
+      <param name="page-size" value="1000"></param>
       <param name="triple-mode" value="false"></param>
       <column name="address" property="ADDRESS" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
       <column name="label" property="LABEL" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
@@ -44,8 +58,22 @@
   <group>
     <sparql>
       <param name="endpoint" value="http://3cixty.casa.ucl.ac.uk:8890/sparql"></param>
-      <param name="query" value="            select distinct(?uri) ?label ?cell ?address             where {             graph ?g {            ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type> &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place> .            ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label> ?label .            ?uri &lt;http://data.linkedevents.org/def/location#cell> ?cell .            ?uri &lt;http://schema.org/location> ?loc .            ?loc &lt;http://schema.org/streetAddress> ?address .            } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) )             } limit 5000             "></param>
-      <param name="page-size" value="0"></param>
+      <param name="query" value="            
+        select distinct(?uri) ?label ?cell ?address             
+        where {             
+        graph ?g {            
+        ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type> &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place> .           
+        ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label> ?label .           
+        ?uri &lt;http://data.linkedevents.org/def/location#cell> ?cell .            
+        ?uri &lt;http://schema.org/location> ?loc .           
+        ?loc &lt;http://schema.org/streetAddress> ?address .           
+        } 
+        filter( !contains(str(?g), &quot;http://3cixty.com/london/places&quot;) ) 
+        filter( !contains(str(?g), &quot;http://3cixty.com/london/events&quot;) )         
+        filter( contains(str(?g), &quot;http://3cixty.com/london/&quot;) ) 
+        }             
+        "></param>
+      <param name="page-size" value="1000"></param>
       <param name="triple-mode" value="false"></param>
       <column name="address" property="ADDRESS" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
       <column name="label" property="LABEL" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
