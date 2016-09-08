@@ -27,7 +27,7 @@
   <database class="no.priv.garshol.duke.databases.LuceneDatabase"></database>
   <group>
     <sparql>
-      <param name="endpoint" value="http://3cixty-alpha.eurecom.fr/sparql"></param>
+      <param name="endpoint" value="http://3cixty.casa.ucl.ac.uk:8890/sparql"></param>
       <param name="query" value="            select distinct(?uri) ?label ?cell ?address             where {             graph ?g {            ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type> &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place> .            ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label> ?label .            ?uri &lt;http://data.linkedevents.org/def/location#cell> ?cell .            ?uri &lt;http://schema.org/location> ?loc .            ?loc &lt;http://schema.org/streetAddress> ?address .            } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) )             } limit 5000             "></param>
       <param name="page-size" value="0"></param>
       <param name="triple-mode" value="false"></param>
@@ -39,7 +39,7 @@
   </group>
   <group>
     <sparql>
-      <param name="endpoint" value="http://3cixty-alpha.eurecom.fr/sparql"></param>
+      <param name="endpoint" value="http://3cixty.casa.ucl.ac.uk:8890/sparql"></param>
       <param name="query" value="            select distinct(?uri) ?label ?cell ?address             where {             graph ?g {            ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type> &lt;http://ontologydesignpatterns.org/ont/dul/DUL.owl#Place> .            ?uri &lt;http://www.w3.org/2000/01/rdf-schema#label> ?label .            ?uri &lt;http://data.linkedevents.org/def/location#cell> ?cell .            ?uri &lt;http://schema.org/location> ?loc .            ?loc &lt;http://schema.org/streetAddress> ?address .            } filter( contains(str(?g), &quot;http://3cixty.com/nice/&quot;) )             } limit 5000             "></param>
       <param name="page-size" value="0"></param>
       <param name="triple-mode" value="false"></param>
