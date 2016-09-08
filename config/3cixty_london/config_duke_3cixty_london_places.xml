@@ -24,7 +24,11 @@
       <high>0.5769089880169693</high>
     </property>
   </schema>
-  <database class="no.priv.garshol.duke.databases.LuceneDatabase"></database>
+  <database class="no.priv.garshol.duke.databases.LuceneDatabase">
+    <param name="max-search-hits" value="10"/>
+    <param name="min-relevance" value="0.4"/>
+    <param name="fuzzy-search" value="true"/>
+</database>
   <group>
     <sparql>
       <param name="endpoint" value="http://3cixty.casa.ucl.ac.uk:8890/sparql"></param>
