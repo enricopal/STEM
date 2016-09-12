@@ -74,4 +74,4 @@ The generated output can be in a .csv format:
 
 or .nt format by specifying --rdf flag:
 
-    <id1> <http://www.w3.org/2002/07/owl#sameAs> <id2>
+    <id1> <http://www.w3.org/2002/07/owl#sameAs> <id2> .
