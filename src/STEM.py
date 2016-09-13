@@ -136,7 +136,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -151,7 +151,7 @@ class STEM:
 
         else:    
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             f.write('%s,%s\n' %(id1,id2))
 
@@ -306,7 +306,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -321,7 +321,7 @@ class STEM:
 
         else:    
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -439,7 +439,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -454,7 +454,7 @@ class STEM:
 
         else:    
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -565,7 +565,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -580,7 +580,7 @@ class STEM:
 
         else:    
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -715,7 +715,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -730,7 +730,7 @@ class STEM:
 
         else:    
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
@@ -856,7 +856,7 @@ class STEM:
 
         if rdf == True:
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             for i in id1_id2_output:
                 if i[2] == 1:
@@ -871,7 +871,7 @@ class STEM:
 
         else:    
 
-            f = open(path_to_file+output_name+'_%d.nt' %N, 'w')
+            f = open(path_to_file+output_name, 'w')
 
             id1 = list(data)[0]
             id2 = list(data)[1]
