@@ -31,7 +31,7 @@
   </database>
   <group>
     <sparql>
-      <param name="endpoint" value="http://3cixty.casa.ucl.ac.uk:8890/sparql"></param>
+      <param name="endpoint" value="http://localhost:8870/sparql"></param>
       <param name="query" value="           
         select distinct(?uri) ?label ?starttime (concat (?lat, &quot;,&quot;, ?long) as ?geo)           
         where {            
@@ -59,7 +59,7 @@
   </group>
   <group>
     <sparql>
-      <param name="endpoint" value="http://3cixty.casa.ucl.ac.uk:8890/sparql"></param>
+      <param name="endpoint" value="http://localhost:8870/sparql"></param>
       <param name="query" value="           
         select distinct(?uri) ?label ?starttime (concat (?lat, &quot;,&quot;, ?long) as ?geo)           
         where {            
