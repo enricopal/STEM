@@ -16,7 +16,7 @@ class stacking_create_training_set:
     #we need to create a Nx20 matrix, in which the rows are the id1,id2 pairs and the columns are the different N configuration
     #The element is 1 if the N-th configuration finds the (id1,id2) and 0 otherwise
 
-    def stacking_create_training_set_duke(self, gold_standard_name):
+    def stacking_create_training_set_duke(self, gold_standard_name, gs_complete):
 
           input_read = open(self.input_file_name,'rU') #read input file
           train = open(self.output_file_name,'w') #write on output file
@@ -110,8 +110,27 @@ class stacking_create_training_set:
               n += 1
 
             except KeyError: #if a match is not annotated in the gs, then it is removed from the training set because we don't know the class label
-              continue
+              if gs_complete == True:
+                training_array[n,N] = 0 #assign the class label
 
+                positive_values = training_dict[(i,j)] #this is the list of the elements that need to be =1, e.g. [2,10,11,13,14]
+
+                for l in positive_values:
+                  training_array[n,l] = 1
+
+                train.write(i) #write ID1
+                train.write(',')
+                train.write(j) #write ID2
+              
+                for number in training_array[n]: #now we write the actual values
+                  train.write(',')
+                  train.write(str(number)) 
+                
+                train.write('\n') 
+                n += 1
+
+              else:
+                continue
           #add to the bottom the lists of matches that are annotated as '+' in the GS and that no configuration is finding
 
           for i,j in gold_standard.keys():
