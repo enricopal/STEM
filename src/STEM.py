@@ -15,20 +15,22 @@ import time
 
 class STEM:
 
-    def __init__(self, file_name, N, a,rdf, output_name):
+    def __init__(self, file_name, N, a,rdf, output_name, log):
 
         self.file_name = file_name
         self.N = N
         self.a = a
         self.rdf = rdf
         self.output_name = output_name
+	self.log = log
 
 
     def stem_duke(self, gold_standard): #train the model on goldstandard
 
         start_time = time.time()
 
-        print 'Starting the entity matching process'
+	if log == True:
+           print 'Starting the entity matching process'
 
         file_name = self.file_name #define the variables
         gold_standard_name = gold_standard
@@ -89,8 +91,9 @@ class STEM:
             
             output_file_raw.write('\n')
             output_file_raw.write('End of run\n') 
-
-            print 'End of run\n'
+	    
+            if log == True:
+               print 'End of run\n'
 
             os.system('rm %s' %path_to_config_and_name) #remove the new modified configuration file
             
@@ -170,13 +173,17 @@ class STEM:
         recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
         f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
-        print "The cross validation scores are:\n"
-        print "Precision: ", np.mean(precision_cross_scores),'\n'
-        print "Recall: ", np.mean(recall_cross_scores),'\n'
-        print "F1: ", np.mean(f1_cross_scores),'\n'
+	if log == False:
+	   print "%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores))
+	
+	else:
+           print "The cross validation scores are:\n"
+           print "Precision: ", np.mean(precision_cross_scores),'\n'
+           print "Recall: ", np.mean(recall_cross_scores),'\n'
+           print "F1: ", np.mean(f1_cross_scores),'\n'
 
 
-        print("--- %s seconds ---" % (time.time() - start_time))
+           print("--- %s seconds ---" % (time.time() - start_time))
 
 
 
@@ -916,6 +923,8 @@ if __name__ == '__main__':
     parser.add_option('-m', '--model', dest = 'model', help = 'use a pretrained classifier')
     parser.add_option('-t','--rdf', action="store_true", dest="rdf", help = 'ntriples format output')
     parser.add_option('-o','--output', dest = 'output_name', help = 'name of the output file of')
+    parser.add_option('-l','--log', action="store_true", dest="log", help = 'print a more concise output', default = True)
+    parser.add_option('-c','--concise', action="store_false", dest="log", help = 'print a more concise output')	
 
     (options, args) = parser.parse_args()
 
@@ -943,8 +952,9 @@ if __name__ == '__main__':
     model = options.model
     output_name = options.output_name
     rdf = options.rdf
+    log = options.log
 
-    stem = STEM(file_name,N,a,rdf, output_name)
+    stem = STEM(file_name,N,a,rdf, output_name, log)
 
     if software_name == 'silk':
 
