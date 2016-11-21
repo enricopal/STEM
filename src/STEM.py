@@ -22,14 +22,14 @@ class STEM:
         self.a = a
         self.rdf = rdf
         self.output_name = output_name
-	    self.log = log
+        self.log = log
 
 
     def stem_duke(self, gold_standard): #train the model on goldstandard
 
         start_time = time.time()
 
-	    if log == True:
+        if log == True:
            print 'Starting the entity matching process'
 
         file_name = self.file_name #define the variables
@@ -173,10 +173,10 @@ class STEM:
         recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
         f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
-	    if log == False:
+        if log == False:
 	       print "%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores))
 	
-	    else:
+        else:
            print "The cross validation scores are:\n"
            print "Precision: ", np.mean(precision_cross_scores),'\n'
            print "Recall: ", np.mean(recall_cross_scores),'\n'
@@ -924,8 +924,7 @@ if __name__ == '__main__':
     parser.add_option('-t','--rdf', action="store_true", dest="rdf", help = 'ntriples format output')
     parser.add_option('-o','--output', dest = 'output_name', help = 'name of the output file of')
     parser.add_option('-q','--complete', dest = "gs_complete", action = "store_true", help = "if all positive examples are annotated in the gs")
-    parser.add_option('-l','--log', action="store_true", dest="log", help = 'print a more concise output', default = True)
-    parser.add_option('-c','--concise', action="store_false", dest="log", help = 'print a more concise output')	
+    parser.add_option('-c','--concise', action="store_false", dest="log", help = 'print a more concise output', default = True)
 
     (options, args) = parser.parse_args()
 
