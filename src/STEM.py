@@ -273,7 +273,7 @@ class STEM:
         #create the training set, named training_set_T1_n%d.csv
 
         crt_training = stacking_create_training_set.stacking_create_training_set(path_to_file+'ensemble_silk_output_raw_n%d.txt' %N,path_to_file+'training_set_silk_n%d.csv' %N, N)
-        crt_training.stacking_create_training_set_silk(gold_standard_name)
+        crt_training.stacking_create_training_set_silk(gold_standard_name, gs_complete)
 
         #read it and make machine learning on it
 
@@ -916,6 +916,8 @@ if __name__ == '__main__':
     parser.add_option('-m', '--model', dest = 'model', help = 'use a pretrained classifier')
     parser.add_option('-t','--rdf', action="store_true", dest="rdf", help = 'ntriples format output')
     parser.add_option('-o','--output', dest = 'output_name', help = 'name of the output file of')
+    parser.add_option('-c','--complete', dest = "gs_complete", action = "store_true", help = "if all positive examples are annotated in the gs")
+
 
     (options, args) = parser.parse_args()
 
@@ -943,6 +945,9 @@ if __name__ == '__main__':
     model = options.model
     output_name = options.output_name
     rdf = options.rdf
+    global gs_complete
+    gs_complete = options.gs_complete
+
 
     stem = STEM(file_name,N,a,rdf, output_name)
 

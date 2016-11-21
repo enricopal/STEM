@@ -138,11 +138,11 @@ class stacking_create_training_set:
           train.close()
 
 
-    def stacking_create_training_set_silk(self, gold_standard_name):
+    def stacking_create_training_set_silk(self, gold_standard_name,gs_complete):
 
           input_read = open(self.input_file_name,'rU') #read input file
           train = open(self.output_file_name,'w') #write on output file
-          gold_standard_read = open(self.gold_standard_name,'rU')
+          gold_standard_read = open(gold_standard_name,'rU')
           N = self.N
 
           training_dict = defaultdict(list) #for each pair id1,id2 the list of configuration where it is found as integer k
@@ -221,7 +221,29 @@ class stacking_create_training_set:
               n += 1
 
             except KeyError: #if a match is not annotated in the gs, then it is removed from the training set because we don't know the class label
-              continue
+              #continue
+
+              if gs_complete == True:
+                training_array[n,N] = 0 #assign the class label
+
+                positive_values = training_dict[(i,j)] #this is the list of the elements that need to be =1, e.g. [2,10,11,13,14]
+
+                for l in positive_values:
+                  training_array[n,l] = 1
+
+                train.write(i) #write ID1
+                train.write(',')
+                train.write(j) #write ID2
+              
+                for number in training_array[n]: #now we write the actual values
+                  train.write(',')
+                  train.write(str(number)) 
+                
+                train.write('\n') 
+                n += 1
+
+              else:
+                continue
 
           #add to the bottom the lists of matches that are annotated as '+' in the GS and that no configuration is finding
 
@@ -417,6 +439,7 @@ if __name__ == '__main__':
     parser.add_option('-N','--number', dest = 'number_of_configurations', help = 'number_of_configurations', type = int)
     parser.add_option('-s', '--software', dest='software_name', help = 'software name')
     parser.add_option('-g', '--gs', dest="gold_standard_name")
+    parser.add_option('-c','--complete', dest = "gs_complete", action = "store_true", help = "if all positive examples are annotated in the gs")
 
     (options, args) = parser.parse_args()
 
@@ -437,6 +460,7 @@ if __name__ == '__main__':
     gold_standard_name = options.gold_standard_name
     N = options.number_of_configurations
     software_name = options.software_name
+    gs_complete = options.gs_complete
 
     crt_training = stacking_create_training_set(input_file_name,output_file_name,N)
 
@@ -455,7 +479,7 @@ if __name__ == '__main__':
 
       if software_name == 'silk' or software_name == 'Silk':
 
-        crt_training.stacking_create_training_set_silk(gold_standard_name)
+        crt_training.stacking_create_training_set_silk(gold_standard_name, gs_complete)
 
       else:
 

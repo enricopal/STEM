@@ -51,7 +51,10 @@ class Scorer:
 
               except KeyError: #not all the keys in the output are in the gold standard and viceversa
 
-                  pass
+                  if gs_complete:
+                    wrong += 1
+                  else:
+                    pass
 
           #print len(output.keys())
           precision = (1.*correct)/(correct + wrong)
@@ -166,6 +169,7 @@ if __name__ == '__main__':
   parser = optparse.OptionParser()
   parser.add_option('-i','--input', dest = 'file_name', help = 'input_file')
   parser.add_option('-g','--gold', dest = 'gs', help = 'gold_standard')
+  parser.add_option('-c','--complete', dest = "gs_complete", action = "store_true", help = "if all positive examples are annotated in the gs")
 
 
   (options, args) = parser.parse_args()
@@ -175,6 +179,9 @@ if __name__ == '__main__':
 
   if options.gs is None:
      options.gs = raw_input('Enter gold_standard file name:')
+
+  global gs_complete
+  gs_complete = options.gs_complete
 
   file_name = options.file_name #define the name string of the file
   gs = options.gs #define the name string of the gold standard
