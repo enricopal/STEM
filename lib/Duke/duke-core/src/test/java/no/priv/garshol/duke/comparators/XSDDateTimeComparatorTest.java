@@ -26,6 +26,4 @@ public class XSDDateTimeComparatorTest {
     assertEquals(1.0, comp.compare("2016-09-21T12:57:57Z", "2016-09-21T13:57:57Z"));
   }
 
-  
-  
 }
