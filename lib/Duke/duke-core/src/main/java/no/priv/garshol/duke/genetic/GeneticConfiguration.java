@@ -255,6 +255,7 @@ public class GeneticConfiguration implements Comparable<GeneticConfiguration> {
 			  "QGramComparator",
 			  "GeopositionComparator",
 			  "LongestCommonSubstring",
+			  "XSDDateTimeComparator"
 	  };
 
 	  List<Comparator> comparators = new ArrayList<Comparator>();
