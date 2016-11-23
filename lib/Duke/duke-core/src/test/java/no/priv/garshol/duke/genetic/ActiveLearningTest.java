@@ -64,7 +64,8 @@ public class ActiveLearningTest {
 
     cfg.setProperties(props);
 
-    GeneticAlgorithm gen = new GeneticAlgorithm(cfg, tstfile.getAbsolutePath(),
+    GeneticAlgorithm gen = new GeneticAlgorithm(cfg, 
+                                                tstfile.getAbsolutePath(),
                                                 true);
     gen.setQuiet(true);
     gen.run(); // should not crash!
