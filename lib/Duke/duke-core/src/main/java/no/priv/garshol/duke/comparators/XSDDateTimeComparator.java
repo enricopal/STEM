@@ -33,11 +33,12 @@ public class XSDDateTimeComparator implements Comparator {
      */
     public static double similarity(String s1, String s2) {
        
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         
         try {
-            Date d1 = df.parse(s1.replaceAll("\\+", "GMT+"));
-            Date d2 = df.parse(s2.replaceAll("\\+", "GMT+"));
+            
+            Date d1 = df.parse(s1);
+            Date d2 = df.parse(s2);
   
             if( d1.equals(d2) ) return 1.0;
             
@@ -45,7 +46,7 @@ public class XSDDateTimeComparator implements Comparator {
                 return 1;
                         
         } catch (ParseException e) {
-            e.printStackTrace();
+            return -1;
         }
         
         return 0;
