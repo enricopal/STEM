@@ -30,7 +30,7 @@ class STEM:
         start_time = time.time()
 
         if log == True:
-           print 'Starting the entity matching process'
+           print('Starting the entity matching process')
 
         file_name = self.file_name #define the variables
         gold_standard_name = gold_standard
@@ -93,7 +93,7 @@ class STEM:
             output_file_raw.write('End of run\n') 
 	    
             if log == True:
-               print 'End of run\n'
+               print('End of run\n')
 
             os.system('rm %s' %path_to_config_and_name) #remove the new modified configuration file
             
@@ -174,13 +174,13 @@ class STEM:
         f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
         if log == False:
-	       print "%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores))
+	       print("%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores)))
 	
         else:
-           print "The cross validation scores are:\n"
-           print "Precision: ", np.mean(precision_cross_scores),'\n'
-           print "Recall: ", np.mean(recall_cross_scores),'\n'
-           print "F1: ", np.mean(f1_cross_scores),'\n'
+           print("The cross validation scores are:\n")
+           print("Precision: ", np.mean(precision_cross_scores),'\n')
+           print("Recall: ", np.mean(recall_cross_scores),'\n')
+           print("F1: ", np.mean(f1_cross_scores),'\n')
 
 
            print("--- %s seconds ---" % (time.time() - start_time))
@@ -271,7 +271,7 @@ class STEM:
             output_file_raw.write('End of run\n') 
 
             if log == True:
-               print 'End of run\n'
+               print('End of run\n')
 
             os.system('rm %s' %path_to_config_and_name) #remove the new modified configuration file
 
@@ -352,13 +352,13 @@ class STEM:
         f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
         if log == False:
-           print "%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores))
+           print("%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores)))
     
         else:
-           print "The cross validation scores are:\n"
-           print "Precision: ", np.mean(precision_cross_scores),'\n'
-           print "Recall: ", np.mean(recall_cross_scores),'\n'
-           print "F1: ", np.mean(f1_cross_scores),'\n'
+           print("The cross validation scores are:\n")
+           print("Precision: ", np.mean(precision_cross_scores),'\n')
+           print("Recall: ", np.mean(recall_cross_scores),'\n')
+           print("F1: ", np.mean(f1_cross_scores),'\n')
 
 
            print("--- %s seconds ---" % (time.time() - start_time))
@@ -368,7 +368,7 @@ class STEM:
 
         start_time = time.time()
 
-        print 'Starting the entity matching process'
+        print('Starting the entity matching process')
 
         file_name = self.file_name #define the variables
         
@@ -420,7 +420,7 @@ class STEM:
             output_file_raw.write('\n')
             output_file_raw.write('End of run\n') 
 
-            print 'End of run\n'
+            print('End of run\n')
 
             os.system('rm %s' %path_to_config_and_name) #remove the new modified configuration file
             
@@ -489,7 +489,7 @@ class STEM:
 
         start_time = time.time()
 
-        print 'Starting the entity matching process'
+        print('Starting the entity matching process')
 
         file_name = self.file_name #define the variables
         
@@ -543,7 +543,7 @@ class STEM:
             output_file_raw.write('\n')
             output_file_raw.write('End of run\n') 
 
-            print 'End of run\n'
+            print('End of run\n')
 
             os.system('rm %s' %path_to_config_and_name) #remove the new modified configuration file
             
@@ -611,10 +611,10 @@ class STEM:
         recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
         f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
-        print "The cross validation scores are:\n"
-        print "Precision: ", np.mean(precision_cross_scores),'\n'
-        print "Recall: ", np.mean(recall_cross_scores),'\n'
-        print "F1: ", np.mean(f1_cross_scores),'\n'
+        print("The cross validation scores are:\n")
+        print("Precision: ", np.mean(precision_cross_scores),'\n')
+        print("Recall: ", np.mean(recall_cross_scores),'\n')
+        print("F1: ", np.mean(f1_cross_scores),'\n')
 
         print("--- %s seconds ---" % (time.time() - start_time))
 
@@ -670,7 +670,7 @@ class STEM:
 
             for thresh in root.iter('Output'):
                 thresh.attrib['minConfidence'] = str(threshold)
-                print thresh.attrib['minConfidence']
+                #print(thresh.attrib['minConfidence'])
 
             path_to_config_and_name = path_to_config+'silk.xml' #dconfig/your_experiment/silk.xml
              
@@ -693,7 +693,7 @@ class STEM:
 
             output_file_raw.write('End of run\n') 
 
-            print "End of run\n"
+            print("End of run\n")
 
             os.system('rm %s' %path_to_config_and_name) #remove the new modified configuration file
 
@@ -811,7 +811,7 @@ class STEM:
 
             for thresh in root.iter('Output'):
                 thresh.attrib['minConfidence'] = str(threshold)
-                print thresh.attrib['minConfidence']
+                #print(thresh.attrib['minConfidence']
 
             path_to_config_and_name = path_to_config+'silk.xml' #dconfig/your_experiment/silk.xml
              
@@ -834,7 +834,7 @@ class STEM:
 
             output_file_raw.write('End of run\n') 
 
-            print "End of run\n"
+            print("End of run\n")
 
             os.system('rm %s' %path_to_config_and_name) #remove the new modified configuration file
 
@@ -903,10 +903,10 @@ class STEM:
         recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
         f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
-        print "The cross validation scores are:\n"
-        print "Precision: ", np.mean(precision_cross_scores),'\n'
-        print "Recall: ", np.mean(recall_cross_scores),'\n'
-        print "F1: ", np.mean(f1_cross_scores),'\n'
+        print("The cross validation scores are:\n")
+        print("Precision: ", np.mean(precision_cross_scores),'\n')
+        print("Recall: ", np.mean(recall_cross_scores),'\n')
+        print("F1: ", np.mean(f1_cross_scores),'\n')
 
         print("--- %s seconds ---" % (time.time() - start_time))
 
@@ -919,13 +919,13 @@ if __name__ == '__main__':
 
     parser = optparse.OptionParser()
     parser.add_option('-i','--input', dest = 'file_name', help = 'file_name')
-    parser.add_option('-N','--number', dest = 'N', help = 'number of classifiers',type = int)
-    parser.add_option('-a','--amplitude', dest = 'a', help = 'amplitude of perturbation',type = float)
+    parser.add_option('-N','--number', dest = 'N', help = 'number of classifiers', type = int)
+    parser.add_option('-a','--amplitude', dest = 'a', help = 'amplitude of perturbation', type = float)
     parser.add_option('-g','--gold', dest = 'gold_standard_name', help = 'gold_standard_name')
     parser.add_option('-s', '--software', dest = 'software_name', help = 'software name')
     parser.add_option('-m', '--model', dest = 'model', help = 'use a pretrained classifier')
     parser.add_option('-t','--rdf', action="store_true", dest="rdf", help = 'ntriples format output')
-    parser.add_option('-o','--output', dest = 'output_name', help = 'name of the output file of')
+    parser.add_option('-o','--output', dest = 'output_name', help = 'name of the output file')
     parser.add_option('-q','--complete', dest = "gs_complete", action = "store_true", help = "if all positive examples are annotated in the gs")
     parser.add_option('-c','--concise', action="store_false", dest="log", help = 'print a more concise output', default = True)
 
