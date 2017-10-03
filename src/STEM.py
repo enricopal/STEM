@@ -5,8 +5,8 @@ import subprocess
 import optparse
 from collections import Counter
 from sklearn.svm import SVC
-from sklearn import cross_validation
-from sklearn import grid_search
+#from sklearn import model_selection
+from sklearn import model_selection
 from sklearn.externals import joblib
 import stacking_create_training_set
 import xml.etree.ElementTree as ET
@@ -87,7 +87,7 @@ class STEM:
 
             java_command = ["java","-Xmx5000m", "-cp", "../lib/Duke/duke-core/target/*:../lib/Duke/duke-dist/target/*:../lib/Duke/duke-es/target/*:../lib/Duke/duke-json/target/*:../lib/Duke/duke-lucene/target/*:../lib/Duke/duke-mapdb/target/*:../lib/Duke/duke-mongodb/target/*:../lib/Duke/duke-server/target/*:../lib/Duke/lucene_jar/*", "no.priv.garshol.duke.Duke", "--showmatches","--batchsize=100000", "--threads=4", "%s" %path_to_config_and_name]
 
-            output_file_raw.write(subprocess.check_output(java_command)) #call duke on the copy.xml file and write the raw output on file
+            output_file_raw.write(subprocess.check_output(java_command).decode('utf-8')) #call duke on the copy.xml file and write the raw output on file
             
             output_file_raw.write('\n')
             output_file_raw.write('End of run\n') 
@@ -119,7 +119,7 @@ class STEM:
         #parameters = [{'kernel' : ['rbf'],'gamma' : np.logspace(-9,3,30),'C': np.logspace(-2,10,30)}, {'kernel' : ['linear'], 'C': np.logspace(-2,10,30)}]
         parameters = {'gamma' : np.logspace(-9,3,30),'C': np.logspace(-2,10,30)}
 
-        gs_rbf = grid_search.GridSearchCV(clf,param_grid=parameters,cv = 4) #grid search hyper parameter optimization
+        gs_rbf = model_selection.GridSearchCV(clf,param_grid=parameters,cv = 4) #grid search hyper parameter optimization
         gs_rbf.fit(X,y)
 
         #choose the best estimator 
@@ -169,12 +169,12 @@ class STEM:
         f.close()
 
 
-        precision_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
-        recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
-        f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
+        precision_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
+        recall_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
+        f1_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
         if log == False:
-	       print("%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores)))
+            print("%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores)))
 	
         else:
            print("The cross validation scores are:\n")
@@ -347,9 +347,9 @@ class STEM:
         f.close()
 
 
-        precision_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
-        recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
-        f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
+        precision_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
+        recall_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
+        f1_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
         if log == False:
            print("%.2f,%.2f,%.2f" %(np.mean(precision_cross_scores),np.mean(recall_cross_scores),np.mean(f1_cross_scores)))
@@ -415,7 +415,7 @@ class STEM:
 
             java_command = ["java","-Xmx5000m", "-cp", "../lib/Duke/duke-core/target/*:../lib/Duke/duke-dist/target/*:../lib/Duke/duke-es/target/*:../lib/Duke/duke-json/target/*:../lib/Duke/duke-lucene/target/*:../lib/Duke/duke-mapdb/target/*:../lib/Duke/duke-mongodb/target/*:../lib/Duke/duke-server/target/*:../lib/Duke/lucene_jar/*", "no.priv.garshol.duke.Duke", "--showmatches","--batchsize=100000", "--threads=4", "%s" %path_to_config_and_name]
 
-            output_file_raw.write(subprocess.check_output(java_command)) #call duke on the copy.xml file and write the raw output on file
+            output_file_raw.write(subprocess.check_output(java_command).decode('utf-8')) #call duke on the copy.xml file and write the raw output on file
             
             output_file_raw.write('\n')
             output_file_raw.write('End of run\n') 
@@ -538,7 +538,7 @@ class STEM:
 
             java_command = ["java","-Xmx5000m", "-cp", "../lib/Duke/duke-core/target/*:../lib/Duke/duke-dist/target/*:../lib/Duke/duke-es/target/*:../lib/Duke/duke-json/target/*:../lib/Duke/duke-lucene/target/*:../lib/Duke/duke-mapdb/target/*:../lib/Duke/duke-mongodb/target/*:../lib/Duke/duke-server/target/*:../lib/Duke/lucene_jar/*", "no.priv.garshol.duke.Duke", "--showmatches","--batchsize=100000", "--threads=4", "%s" %path_to_config_and_name]
 
-            output_file_raw.write(subprocess.check_output(java_command)) #call duke on the copy.xml file and write the raw output on file
+            output_file_raw.write(subprocess.check_output(java_command).decode('utf-8')) #call duke on the copy.xml file and write the raw output on file
             
             output_file_raw.write('\n')
             output_file_raw.write('End of run\n') 
@@ -607,9 +607,9 @@ class STEM:
                 
         f.close()
 
-        precision_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
-        recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
-        f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
+        precision_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
+        recall_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
+        f1_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
         print("The cross validation scores are:\n")
         print("Precision: ", np.mean(precision_cross_scores),'\n')
@@ -899,9 +899,9 @@ class STEM:
         f.close()
 
 
-        precision_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
-        recall_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
-        f1_cross_scores = cross_validation.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
+        precision_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'precision')
+        recall_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'recall')
+        f1_cross_scores = model_selection.cross_val_score(clf, X, y, cv = 4, scoring = 'f1')
 
         print("The cross validation scores are:\n")
         print("Precision: ", np.mean(precision_cross_scores),'\n')
@@ -932,19 +932,19 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     if options.file_name is None:
-       options.file_name = raw_input('Enter file name:')
+       options.file_name = input('Enter file name:')
 
     if options.N is None:
-        options.N = raw_input('Enter number of classifiers:')
+        options.N = input('Enter number of classifiers:')
 
     if options.a is None:
         options.a = 0.05 #default to 0.05
 
     if options.software_name is None:
-        options.software_name = raw_input('Enter software name, silk or duke:')
+        options.software_name = input('Enter software name, silk or duke:')
 
     if options.output_name is None:
-        options.output_name = raw_input('Enter output file name')
+        options.output_name = input('Enter output file name')
 
 
     file_name = options.file_name #define the variables
@@ -967,7 +967,7 @@ if __name__ == '__main__':
         if model is None: #you need to specify a gold standard and train the model
 
             if gold_standard_name is None:
-                gold_standard_name = raw_input('Enter gold standard file name:')
+                gold_standard_name = input('Enter gold standard file name:')
 
             gold_standard_name = options.gold_standard_name
             stem.stem_silk(gold_standard_name)
@@ -985,7 +985,7 @@ if __name__ == '__main__':
         if model is None: #you need to specify a gold standard and train the model
 
             if gold_standard_name is None:
-                gold_standard_name = raw_input('Enter gold standard file name:')
+                gold_standard_name = input('Enter gold standard file name:')
                 
             stem.stem_duke(gold_standard_name)
 
