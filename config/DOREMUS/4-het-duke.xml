@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<duke>
+  <schema>
+    <threshold>0.9085952575039191</threshold>
+    <property type="id">
+      <name>ID</name>
+    </property>
+    <property>
+      <name>TITLE</name>
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.43744361494437467</low>
+      <high>0.942225032420675</high>
+    </property>
+    <property>
+      <name>CARRIED</name>
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.31126184977462956</low>
+      <high>0.7529156002639048</high>
+    </property>
+    <property>
+      <name>KEY</name>
+      <comparator>no.priv.garshol.duke.comparators.ExactComparator</comparator>
+      <low>0.18533560770433188</low>
+      <high>0.5769089880169693</high>
+    </property>
+    <property>
+      <name>NOTE1</name>
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.18533560770433188</low>
+      <high>0.5769089880169693</high>
+    </property>
+    <property>
+      <name>NOTE2</name>
+      <comparator>no.priv.garshol.duke.comparators.JaroWinkler</comparator>
+      <low>0.18533560770433188</low>
+      <high>0.5769089880169693</high>
+    </property>
+  </schema>
+  <database class="no.priv.garshol.duke.databases.LuceneDatabase">
+    <param name="max-search-hits" value="10"/>
+    <param name="min-relevance" value="0.4"/>
+    <param name="fuzzy-search" value="true"/>    
+  </database>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://data.doremus.org/sparql-oaei"></param>
+      <param name="query" value="            
+        select distinct(?uri) ?title ?carried ?key ?hasnote1 ?hasnote2        
+        where {             
+        graph ?g {            
+        ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; mus:Self_Contained_Expression .
+        ?uri &lt;cidoc-crm:P102_has_title&gt; ?title .          
+        ?uri &lt;frbroo:R17i_was_created_by/cidoc-crm:P9_consists_of/cidoc-crm:P14_carried_out_by/cidoc-crm:P131_is_identified_by&gt; ?carried .            
+        ?uri &lt;mus:U11_has_key/cidoc-crm:P1_is_identified_by&gt; ?key .            
+        ?uri &lt;mus:U13_has_casting/cidoc-crm:P3_has_note&gt; ?hasnote1 .     
+        ?uri &lt;frbroo:R17i_was_created_by/cidoc-crm:P3_has_note&gt; ?hasnote2       
+        }
+        filter( contains(str(?g), &quot;http://data.doremus.org/pp2&quot;) )             
+        }             
+        "></param>
+      <param name="page-size" value="1000"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="uri" property="ID"></column>
+      <column name="title" property="TITLE" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="carried" property="CARRIED" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="key" property="KEY" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="hasnote1" property="NOTE1" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="hasnote2" property="NOTE2" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+    </sparql>
+  </group>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://data.doremus.org/sparql-oaei"></param>
+      <param name="query" value="            
+        select distinct(?uri) ?title ?carried ?key ?hasnote1 ?hasnote2        
+        where {             
+        graph ?g {            
+        ?uri &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; mus:Self_Contained_Expression .
+        ?uri &lt;cidoc-crm:P102_has_title&gt; ?title .          
+        ?uri &lt;frbroo:R17i_was_created_by/cidoc-crm:P14_carried_out_by&gt; ?carried .            
+        ?uri &lt;mus:U11_has_key&gt; ?key .            
+        ?uri &lt;mus:U13_has_casting&gt; ?hasnote1 .     
+        ?uri &lt;frbroo:R17i_was_created_by/cidoc-crm:P3_has_note&gt; ?hasnote2       
+        }
+        filter( contains(str(?g), &quot;http://data.doremus.org/bnf2&quot;) )             
+        }             
+        "></param>
+      <param name="page-size" value="1000"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="uri" property="ID"></column>
+      <column name="title" property="TITLE" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="carried" property="CARRIED" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="key" property="KEY" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="hasnote1" property="NOTE1" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="hasnote2" property="NOTE2" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+    </sparql>
+  </group>
+</duke>
