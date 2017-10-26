@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Silk>
+
+  <Prefixes>
+  	<Prefix id="rdf" namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix id="rdfs" namespace="http://www.w3.org/2000/01/rdf-schema#" />
+    <Prefix id="dcterms" namespace="http://dublincore.org/documents/dcmi-terms/#" />
+    <Prefix id="mus" namespace="http://data.doremus.org/ontology/" />
+    <Prefix id="cidoc-crm" namespace="http://www.cidoc-crm.org/cidoc-crm/" />
+    <Prefix id="frbroo" namespace="http://erlangen-crm.org/efrbroo/" />
+  </Prefixes>
+
+    <DataSources>
+    <DataSource type="file" id="ontoA">
+      <Param name="file" value="../../data/DOREMUS/9-heterogeneities/PP-1.ttl" /> 
+      <Param name="format" value="TURTLE"/>
+    </DataSource>
+    <DataSource type="file" id="ontoB">
+      <Param name="file" value="../../data/DOREMUS/9-heterogeneities/Bnf-1.ttl" />   
+      <Param name="format" value="TURTLE"/>  
+    </DataSource>
+  </DataSources>
+<Blocking blocks="100" />
+
+  <Interlinks>
+    <Interlink id="oeuvres">
+      <LinkType>owl:sameAs</LinkType>
+
+        <SourceDataset dataSource="ontoA" var="a">
+        <RestrictTo>
+          ?a a mus:Self_Contained_Expression .
+        </RestrictTo>
+      </SourceDataset>
+
+      <TargetDataset dataSource="ontoB" var="b">
+        <RestrictTo>
+          ?b a mus:Self_Contained_Expression .
+        </RestrictTo>
+      </TargetDataset>
+      <LinkageRule>
+        <Aggregate type="average">
+          <Compare metric="levenshtein" threshold="1">
+            <TransformInput function="tokenize">          
+              <Input path="?a/cidoc-crm:P102_has_title" />
+            </TransformInput>
+             <TransformInput function="tokenize">
+              <Input path="?b/cidoc-crm:P102_has_title" />
+            </TransformInput>
+          </Compare>
+        </Aggregate>
+        <Filter limit="1" />
+      </LinkageRule>
+    </Interlink>
+  </Interlinks>
+      
+
+      <Outputs>
+        <Output  type="file" minConfidence="0.9">
+          <Param name="file" value="accepted_termm_9_C2.nt" />
+          <Param name="format" value="ntriples" />
+        </Output>
+      </Outputs>
+
+</Silk>
