@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<duke>
+  <schema>
+    <threshold>0.8</threshold>
+    <property type="id">
+      <name>ID</name>
+    </property>
+    <property>
+      <name>TITLE</name>
+      <comparator>no.priv.garshol.duke.comparators.Levenshtein</comparator>
+      <low>0.3</low>
+      <high>0.95</high>
+    </property>
+  </schema>
+  <database class="no.priv.garshol.duke.databases.LuceneDatabase">
+    <param name="max-search-hits" value="10"/>
+    <param name="min-relevance" value="0.4"/>
+    <param name="fuzzy-search" value="true"/>    
+  </database>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://data.doremus.org/sparql-oaei"></param>
+      <param name="query" value="            
+        select distinct(?uri) ?title       
+       where {            
+        graph ?g {            
+       ?uri a mus:Self_Contained_Expression .
+        ?uri cidoc-crm:P102_has_title ?title .       
+        }   
+        filter( contains(str(?g), &quot;http://data.doremus.org/bnf1&quot;) )    
+
+        }             
+        "></param>
+      <param name="page-size" value="1000"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="uri" property="ID"></column>
+      <column name="title" property="TITLE" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+    </sparql>
+  </group>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://data.doremus.org/sparql-oaei"></param>
+      <param name="query" value="            
+        select distinct(?uri) ?title        
+        where {             
+        graph ?g {            
+        ?uri a mus:Self_Contained_Expression .
+        ?uri cidoc-crm:P102_has_title ?title . 
+        }         
+        filter( contains(str(?g), &quot;http://data.doremus.org/pp1&quot;) )             
+        }             
+        "></param>
+      <param name="page-size" value="1000"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="uri" property="ID"></column>
+      <column name="title" property="TITLE" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+    </sparql>
+  </group>
+</duke>

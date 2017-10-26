@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<duke>
+  <schema>
+    <threshold>0.2490045420989696</threshold>
+    <property type="id">
+      <name>ID</name>
+    </property>
+    <property>
+      <name>TITLE</name>
+      <comparator>no.priv.garshol.duke.comparators.QGramComparator</comparator>
+      <low>0.09364816832147932</low>
+      <high>0.6908986736108476</high>
+    </property>
+  </schema>
+  <database class="no.priv.garshol.duke.databases.LuceneDatabase"></database>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://data.doremus.org/sparql-oaei"></param>
+      <param name="query" value="                     select distinct(?uri) ?title               where {                     graph ?g {                    ?uri a mus:Self_Contained_Expression .         ?uri cidoc-crm:P102_has_title ?title .                }            filter( contains(str(?g), &quot;http://data.doremus.org/bnf1&quot;) )              }                      "></param>
+      <param name="page-size" value="1000"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="title" property="TITLE" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="uri" property="ID"></column>
+    </sparql>
+  </group>
+  <group>
+    <sparql>
+      <param name="endpoint" value="http://data.doremus.org/sparql-oaei"></param>
+      <param name="query" value="                     select distinct(?uri) ?title                 where {                      graph ?g {                     ?uri a mus:Self_Contained_Expression .         ?uri cidoc-crm:P102_has_title ?title .          }                  filter( contains(str(?g), &quot;http://data.doremus.org/pp1&quot;) )                      }                      "></param>
+      <param name="page-size" value="1000"></param>
+      <param name="triple-mode" value="false"></param>
+      <column name="title" property="TITLE" cleaner="no.priv.garshol.duke.cleaners.LowerCaseNormalizeCleaner"></column>
+      <column name="uri" property="ID"></column>
+    </sparql>
+  </group>
+</duke>

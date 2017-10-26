@@ -12,11 +12,11 @@
 
     <DataSources>
     <DataSource type="file" id="ontoA">
-      <Param name="file" value="../../data/DOREMUS/Doremus/9-heterogeneities/PP-1.ttl" /> 
+      <Param name="file" value="../../data/DOREMUS/9-heterogeneities/PP-1.ttl" /> 
       <Param name="format" value="TURTLE"/>
     </DataSource>
     <DataSource type="file" id="ontoB">
-      <Param name="file" value="../../data/DOREMUS/Doremus/9-heterogeneities/Bnf-1.ttl" />   
+      <Param name="file" value="../../data/DOREMUS/9-heterogeneities/Bnf-1.ttl" />   
       <Param name="format" value="TURTLE"/>  
     </DataSource>
   </DataSources>
